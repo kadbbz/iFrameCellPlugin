@@ -1,0 +1,19 @@
+{
+  "assembly": [
+    "iFrameCellPlugin.dll"
+  ],
+  "css": [],
+  "javascript": [
+    "Resources/iFrameCellPluginCellType.js",
+    "Resources/iFrameCellPluginCommand.js"
+  ],
+  "image": "Resources/wireframe.png",
+  "description": "通过本单元格将当前应用中的页面，HTML片段或其他Web页面以iFrame的形式嵌入页面。用户使用配套的命令和单元格操作，可以实现父子页面间的数据传递。本插件通常用于页面加载性能优化或与第三方系统做嵌入式集成。",
+  "name": "可交互的页面容器（iFrame）",
+  "pluginType": "cellType,command",
+  "guid": "d8515c2e-fcc2-4135-b229-7f5e55f69cea",
+  "version": "1.0.0.0",
+  "dependenceVersion": "8.0.104.0",
+  "bundleJavaScript": true,
+  "bundleCSS": true
+}
