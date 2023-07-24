@@ -23,7 +23,7 @@ namespace iFrameCellPlugin
         }
 
         [RunTimeMethod]
-        [DisplayName("读取子页面中单元格的值")]
+        [DisplayName("读取子页面中单元格的值（需确保在子页面加载完成后调用）")]
         public void GetCellValue(
             [ItemDisplayName("单元格名称")]
             string CellName,
