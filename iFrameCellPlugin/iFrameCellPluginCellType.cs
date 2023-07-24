@@ -1,6 +1,8 @@
 using GrapeCity.Forguncy.CellTypes;
+using GrapeCity.Forguncy.Commands;
 using GrapeCity.Forguncy.Plugin;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace iFrameCellPlugin
@@ -24,12 +26,11 @@ namespace iFrameCellPlugin
 
         [RunTimeMethod]
         [DisplayName("读取子页面中单元格的值（需确保在子页面加载完成后调用）")]
-        public void GetCellValue(
+        public GetCellValueResult GetCellValue(
             [ItemDisplayName("单元格名称")]
-            string CellName,
-            [ItemDisplayName("将结果返回到变量")]
-            string OutParamaterName)
+            string CellName)
         {
+            return null;
         }
 
         [RunTimeMethod]
@@ -46,5 +47,19 @@ namespace iFrameCellPlugin
         {
             return "可交互的页面容器（iFrame）";
         }
+
+        [Browsable(false)]
+        public List<Command> CommandList { get; set; } = new List<Command>();
+
+        public IEnumerable<List<Command>> EnumSubCommands()
+        {
+            yield return CommandList;
+        }
+    }
+
+    public class GetCellValueResult
+    {
+        [DisplayName("单元格的值")]
+        public string CellValue { get; set; } = "CellValue";
     }
 }

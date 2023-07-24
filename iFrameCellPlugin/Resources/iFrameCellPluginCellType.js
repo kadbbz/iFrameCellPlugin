@@ -66,7 +66,9 @@ class iFrameCellPluginCellType extends Forguncy.Plugin.CellTypeBase {
         CellName = this.evaluateFormula(CellName);
         let iFrameW = window.frames[this.CellElement.CellType.FrameID].contentWindow;
         let data = iFrameW.Forguncy.Page.getCell(CellName).getValue();
-        ICCT_ReturnToParam(OutParamaterName, data);
+        return {
+            CellValue: data
+        };
     }
 
     SetCellValue(CellName, CellValue) {
