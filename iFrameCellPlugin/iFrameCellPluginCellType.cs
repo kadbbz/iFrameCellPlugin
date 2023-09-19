@@ -20,7 +20,10 @@ namespace iFrameCellPlugin
             [ComboProperty(ValueList = "Page：当前应用中的页面名称|URL：外部Web页面的URL地址|HTML：包含<html>标签的HTML语句")]
             string Mode,
             [ItemDisplayName("目标页面")]
-            string Target)
+            string Target,
+            [ItemDisplayName("点击设置iFrame标签的属性，如allow、style等")]
+            [ListProperty]
+            List<AttributeValueObject> AttributesPairs)
         {
         }
 
@@ -42,6 +45,7 @@ namespace iFrameCellPlugin
             string CellValue)
         {
         }
+
 
         public override string ToString()
         {

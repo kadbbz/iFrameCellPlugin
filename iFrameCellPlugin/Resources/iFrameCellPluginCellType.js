@@ -31,7 +31,7 @@ var ICCT_iFrameLoad = function (id) {
 
     let iFrameW = currentWindow.frames[id].contentWindow
 
-   
+
 
     if (iFrameW.Forguncy.Page) {
         if (iFrameW.Forguncy.PageBuilder.pageTotallyLoaded) {
@@ -47,6 +47,37 @@ var ICCT_iFrameLoad = function (id) {
 };
 
 
+var ICCT_buildAttributes = function (context, pairs) {
+
+    var result = "";
+    var hasStyle = false;
+
+    if (pairs && pairs instanceof Array) {
+
+        pairs.forEach(function (v) {
+            var pNameP = context.evaluateFormula(v.Name);
+            var pValueP = context.evaluateFormula(v.Value);
+
+            result += " ";
+            result += pNameP;
+            result += "='";
+            result += pValueP;
+            result += "' ";
+
+            if (pNameP.toLowerCase() === "style") {
+                hasStyle = true;
+            }
+        });
+    }
+
+    if (!hasStyle) {
+        result += " style='width:100%; height:100%; border: none;'";
+    }
+
+    return result;
+
+}
+
 
 class iFrameCellPluginCellType extends Forguncy.Plugin.CellTypeBase {
 
@@ -57,9 +88,9 @@ class iFrameCellPluginCellType extends Forguncy.Plugin.CellTypeBase {
         return this.content;
     }
 
-    Load(mode, Target) {
+    Load(mode, Target, AttributesPairs) {
         Target = this.evaluateFormula(Target);
-        this.set_Target(mode, Target)
+        this.set_Target(mode, Target, AttributesPairs)
     }
 
     GetCellValue(CellName, OutParamaterName) {
@@ -84,7 +115,7 @@ class iFrameCellPluginCellType extends Forguncy.Plugin.CellTypeBase {
 
         } else {
 
-            console.log('Registry post-load task for Setting value to Cell '+CellName);
+            console.log('Registry post-load task for Setting value to Cell ' + CellName);
 
             ICCT_RegistrySubPageTask(iFrameId, () => {
                 iFrameW.Forguncy.Page.getCell(CellName).setValue(CellValue);
@@ -93,20 +124,23 @@ class iFrameCellPluginCellType extends Forguncy.Plugin.CellTypeBase {
         }
     }
 
-    set_Target(mode, target) {
+    set_Target(mode, target, attrs) {
 
+        let me = this;
         let frameId = this.CellElement.CellType.FrameID;
+
+        let attr = ICCT_buildAttributes(me, attrs ? attrs.$values : null);
 
         if (mode.startsWith("Page")) {
             let urlRoot = Forguncy.Helper.SpecialPath.getBaseUrl();
             let targetUrl = window.location.protocol + '//' + window.location.host + urlRoot + target;
-            let dom = '<iframe id="' + frameId + '" src="' + targetUrl + '" style="width: 100%; height: 100%; border: none;" onload="ICCT_iFrameLoad(\'' + frameId + '\');"></iframe>'
+            let dom = '<iframe id="' + frameId + '" src="' + targetUrl + '" onload="ICCT_iFrameLoad(\'' + frameId + '\');" ' + attr + '></iframe>'
             this.content.html(dom);
         } else if (mode.startsWith("URL")) {
-            let dom = '<iframe id="' + frameId + '" src="' + target + '" style="width: 100%; height: 100%; border: none;" onload="ICCT_iFrameLoad(\'' + frameId + '\');"></iframe>'
+            let dom = '<iframe id="' + frameId + '" src="' + target + '" onload="ICCT_iFrameLoad(\'' + frameId + '\');" ' + attr + '></iframe>'
             this.content.html(dom);
         } else {
-            this.content.html('<iframe id="' + frameId + '" style="width: 100%; height: 100%; border: none;" onload="ICCT_iFrameLoad(\'' + frameId + '\');"></iframe>');
+            this.content.html('<iframe id="' + frameId + '" onload="ICCT_iFrameLoad(\'' + frameId + '\');" ' + attr + '></iframe>');
             let iframeWindow = document.getElementById(frameId).contentWindow;
             iframeWindow.document.open();
             iframeWindow.document.write(target);

@@ -12,8 +12,8 @@
   "name": "可交互的页面容器（iFrame）",
   "pluginType": "cellType,command",
   "guid": "d8515c2e-fcc2-4135-b229-7f5e55f69cea",
-  "version": "2.0.0.1",
-  "dependenceVersion": "8.0.104.0",
+  "version": "2.1.0.0",
+  "dependenceVersion": "8.0.0.0",
   "bundleJavaScript": true,
   "bundleCSS": true
 }
