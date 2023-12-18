@@ -31,9 +31,7 @@ var ICCT_iFrameLoad = function (id) {
 
     let iFrameW = currentWindow.frames[id].contentWindow
 
-
-
-    if (iFrameW.Forguncy.Page) {
+    if (iFrameW.Forguncy && iFrameW.Forguncy.Page) {
         if (iFrameW.Forguncy.PageBuilder.pageTotallyLoaded) {
             ICCT_ExecuteTasks(id);
         } else {
