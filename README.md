@@ -1,3 +1,6 @@
+# 项目迁移至Gitee
+https://gitee.com/low-code-dev-lab/huozige-iframe-plugin
+
 # iFrameCellPlugin
 活字格可交互的页面容器（iFrame）插件。本插件包含1一个单元格类型和2个命令。在父页面上使用单元格类型“可交互的页面容器（iFrame）”，子页面中使用“获取/设置父页面单元格的值”与父页面交互。
 
